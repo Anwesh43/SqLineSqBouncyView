@@ -32,25 +32,25 @@ fun Float.sinify() : Float = Math.sin(this * Math.PI).toFloat()
 fun Canvas.drawSqLine(i : Int, scale : Float, h : Float, size : Float, paint : Paint) {
     val sf : Float = scale.sinify().divideScale(i, squares)
     var lines : Int = 0
-    val sc1 : Float = sf.divideScale(0, lines + 1)
     var sc2 : Float = 0f
     if (i != squares - 1) {
         lines = 1
         sc2 = sf.divideScale(1, lines + 1)
     }
-    val hGap : Float = (h) / (squares + 2)
-    val y : Float = h - hGap / 2 - hGap * i
+    val sc1 : Float = sf.divideScale(0, lines + 1)
+    val hGap : Float = (h - size) / (squares - 1)
+    val y : Float = h - size / 2 - hGap * i
     val yBar : Float = -size * sc1
-    val yLine : Float = -hGap * sc2
+    val yLine : Float = -(hGap - size) * sc2
     val yLF : Float = -size / 2
     save()
     translate(0f, y)
     paint.color = grayBack
     drawRect(RectF(-size / 2, -size / 2, size / 2, size / 2), paint)
-    drawLine(0f, yLF, 0f, yLF - hGap * lines, paint)
+    drawLine(0f, yLF, 0f, yLF - (hGap - size) * lines, paint)
     paint.color = fillBack
-    drawRect(RectF(-size / 2, size / 2, size / 2, size / 2 + yBar), paint)
-    drawLine(0f, yLF + yLine, 0f, yLF -hGap, paint)
+    drawRect(RectF(-size / 2, size / 2 + yBar, size / 2, size / 2), paint)
+    drawLine(0f, yLF, 0f, yLF + yLine * lines, paint)
     restore()
 }
 
