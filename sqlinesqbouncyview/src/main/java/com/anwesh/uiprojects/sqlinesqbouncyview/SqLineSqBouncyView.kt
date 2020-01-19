@@ -203,4 +203,26 @@ class SqLineSqBouncyView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : SqLineSqBouncyView) {
+
+        private val animator : Animator = Animator(view)
+        private val sls : SqLineSq = SqLineSq(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            sls.draw(canvas, paint)
+            animator.animate {
+                sls.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            sls.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
