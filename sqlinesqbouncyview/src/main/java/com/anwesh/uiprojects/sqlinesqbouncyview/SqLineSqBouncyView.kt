@@ -226,4 +226,13 @@ class SqLineSqBouncyView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : SqLineSqBouncyView {
+            val view : SqLineSqBouncyView = SqLineSqBouncyView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
